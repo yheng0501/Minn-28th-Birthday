@@ -28,17 +28,23 @@
         /* 愛心背景固定在最底層 */
         canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
-        /* 修改重點 1：照片固定在畫面中央，但層級設為較低 */
+        #main-content { 
+            opacity: 0; 
+            transition: opacity 1.5s; 
+            position: relative; 
+            z-index: 5; 
+            width: 100%; 
+            display: none; /* 初始隱藏 */
+        }
+
+        /* 照片容器：改回 relative，隨網頁滾動 */
         .slideshow-container {
-            position: fixed; 
-            top: 250px; /* 控制照片離頂部的高度 */
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative; 
             width: 320px; 
             height: 320px;
-            z-index: 2; /* 放在愛心之上，但文字之下 */
+            margin: 50px auto 30px auto; /* 距離頂部 50px */
             perspective: 1000px;
-            display: none; /* 初始隱藏 */
+            z-index: 2;
         }
 
         .photo {
@@ -49,18 +55,10 @@
         }
         .photo.active { opacity: 1; animation: float 5s ease-in-out infinite; }
 
-        /* 主要內容容器 */
-        #main-content { 
-            opacity: 0; 
-            transition: opacity 1.5s; 
-            position: relative; 
-            z-index: 10; /* 文字層級最高，但我們要讓它從照片下方開始 */
-            width: 100%; 
-        }
-
-        /* 文字層級：利用 margin-top 避開固定照片 */
+        /* 文字層級 */
         #content-layer {
             position: relative;
+            z-index: 10;
             text-align: center; 
             color: white; 
             width: 100%;
@@ -68,24 +66,20 @@
             margin: 0 auto;
         }
 
-        /* 修改重點 2：標題的 margin-top 要超過照片的高度 */
         h1 { 
             font-size: 1.8rem; 
             text-shadow: 0 0 10px #ff69b4; 
-            margin-top: 450px; /* 這裡的數值大於照片位置，確保文字在照片下方 */
-            margin-bottom: 30px;
+            margin: 20px 0;
             padding: 0 20px;
         }
         
         .long-text {
             font-size: 1.1rem;
-            line-height: 2.2;
+            line-height: 2;
             color: #fff;
-            padding: 0 30px 150px 30px; 
+            padding: 0 30px 100px 30px; 
             white-space: pre-wrap;
             text-align: center;
-            /* 讓文字在經過照片區時不遮擋照片（如果照片是在背景）*/
-            background: transparent; 
         }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
@@ -102,29 +96,29 @@
         </div>
     </div>
 
-    <div id="slides-fixed" class="slideshow-container">
-        <img src="p1.jpg" class="photo active">
-        <img src="p2.jpg" class="photo">
-        <img src="p3.jpg" class="photo">
-        <img src="p4.jpg" class="photo">
-        <img src="p5.jpg" class="photo">
-        <img src="p6.jpg" class="photo">
-        <img src="p7.jpg" class="photo">
-        <img src="p8.jpg" class="photo">
-        <img src="p9.jpg" class="photo">
-        <img src="p10.jpg" class="photo">
-        <img src="p11.jpg" class="photo">
-        <img src="p12.jpg" class="photo">
-        <img src="p13.jpg" class="photo">
-        <img src="p14.jpg" class="photo">
-        <img src="p15.jpg" class="photo">
-        <img src="p16.jpg" class="photo">
-        <img src="p17.jpg" class="photo">
-    </div>
-
     <div id="main-content">
         <canvas id="heartCanvas"></canvas>
         <div id="content-layer">
+            <div class="slideshow-container">
+                <img src="p1.jpg" class="photo active">
+                <img src="p2.jpg" class="photo">
+                <img src="p3.jpg" class="photo">
+                <img src="p4.jpg" class="photo">
+                <img src="p5.jpg" class="photo">
+                <img src="p6.jpg" class="photo">
+                <img src="p7.jpg" class="photo">
+                <img src="p8.jpg" class="photo">
+                <img src="p9.jpg" class="photo">
+                <img src="p10.jpg" class="photo">
+                <img src="p11.jpg" class="photo">
+                <img src="p12.jpg" class="photo">
+                <img src="p13.jpg" class="photo">
+                <img src="p14.jpg" class="photo">
+                <img src="p15.jpg" class="photo">
+                <img src="p16.jpg" class="photo">
+                <img src="p17.jpg" class="photo">
+            </div>
+
             <h1>3/10 生日快樂🎉願你永遠開心！</h1>
             
             <div class="long-text">
@@ -176,14 +170,13 @@
         const yesBtn = document.getElementById('yes-btn');
         const overlay = document.getElementById('overlay');
         const mainContent = document.getElementById('main-content');
-        const slidesFixed = document.getElementById('slides-fixed');
         
         yesBtn.onclick = () => {
             overlay.style.opacity = '0';
             setTimeout(() => { 
                 overlay.style.display = 'none'; 
-                mainContent.style.opacity = '1'; 
-                slidesFixed.style.display = 'block'; 
+                mainContent.style.display = 'block'; // 顯示內容區塊
+                setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
                 startAnim(); 
             }, 1000);
         };
@@ -230,7 +223,7 @@
         function startAnim() {
             canvas.width = window.innerWidth; 
             canvas.height = window.innerHeight;
-            for(let i=0; i<100; i++) hearts.push(new Heart());
+            for(let i=0; i<80; i++) hearts.push(new Heart());
             (function frame() { 
                 ctx.clearRect(0,0,canvas.width,canvas.height); 
                 hearts.forEach(h=>{h.update();h.draw();}); 
