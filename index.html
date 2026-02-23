@@ -88,36 +88,47 @@
 		    white-space: pre-line;
 		    padding-left: 24px;
 		    position: relative;
-		    opacity: 0;
-		    transform: translateY(8px);     
-		    animation: textFade 1s ease-out forwards;
 		}
 		.long-text.zh {
 		    color: #eee;
 		    margin-bottom: 40px;
+		    opacity: 0;
+		    transform: translateY(8px);
+		    animation: textFade 1s ease-out forwards;
 		}
-		.long-text.en {
-		    color: #ccc;
-		    font-style: italic;
-		}
-		.long-text::before {
+		.long-text.zh::before {
 		    content: "";
 		    position: absolute;
 		    left: 0;
 		    top: 0;
 		    width: 2px;
 		    height: 0;
-		}
-		.long-text.zh::before {
 		    background: rgba(255, 182, 193, 0.9);
 		    box-shadow: -6px 0 12px -6px rgba(255,105,180,0.6);
 		    animation: lineGrow 1s ease-out forwards;
 		    animation-delay: 0.1s;
 		}
+		.long-text.en {
+		    color: #ccc;
+		    font-style: italic;
+		    opacity: 0;
+		    transform: translateY(8px);
+		}
 		.long-text.en::before {
+		    content: "";
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		    width: 2px;
+		    height: 0;
 		    background: rgba(200, 200, 200, 0.5);
+		}
+		.long-text.en.animate {
+		    animation: textFade 1s ease-out forwards;
+		}
+		.long-text.en.animate::before {
 		    animation: lineGrow 1s ease-out forwards;
-		    animation-delay: 0.2s;
+		    animation-delay: 0.1s;
 		}
 		.divider {
 		    width: 60%;
@@ -135,17 +146,21 @@
 		        font-size: 1rem;
 		        padding-left: 18px;
 		    }
-		}
+		}		
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 		@keyframes lineGrow {
-				    from { height: 0; }
-				    to   { height: 100%; }}
-
+		    from { height: 0; }
+		    to   { height: 100%; }
+		}
 		@keyframes textFade {
-		    from {opacity: 0;
-				  transform: translateY(8px);}
-		    to {opacity: 1;
-		        transform: translateY(0);}
+		    from {
+		        opacity: 0;
+		        transform: translateY(8px);
+		    }
+		    to {
+		        opacity: 1;
+		        transform: translateY(0);
+		    }
 		}
     </style>
 </head>
@@ -301,6 +316,23 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         };
+		// 讓英文詩滾動到視窗中時才出現
+		const enText = document.querySelector('.long-text.en');
+		
+		if (enText) {
+		    const observer = new IntersectionObserver((entries, obs) => {
+		        entries.forEach(entry => {
+		            if (entry.isIntersecting) {
+		                entry.target.classList.add('animate');
+		                obs.unobserve(entry.target); // 只動畫一次就好
+		            }
+		        });
+		    }, {
+		        threshold: 0.3   // 約有 30% 區塊進入視窗就觸發
+		    });
+		
+		    observer.observe(enText);
+		}	
     </script>
 </body>
 </html>
