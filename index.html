@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever Love</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+        }
+
+        /* 第一層：詢問畫面 */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease;
+        }
+
+        #overlay h2 {
+            color: white;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 25px;
+            border: none;
+            transition: 0.3s;
+        }
+
+        #yes-btn {
+            background-color: #ff69b4;
+            color: white;
+            box-shadow: 0 0 15px #ff69b4;
+        }
+
+        #no-btn {
+            background-color: #444;
+            color: #ccc;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        /* 第二層：主要動畫內容 (預設隱藏) */
+        #main-content {
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #content-layer {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            width: 100%;
+        }
+
+        /* 修改：照片尺寸放大至 350px */
+        .slideshow-container {
+            position: relative;
+            width: 350px; 
+            height: 350px;
+            margin: 0 auto 30px;
+            perspective: 1200px;
+        }
+
+        .photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .photo.active {
+            opacity: 1;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #ff69b4;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <h2>Once opened, the letters cannot be restored. 😈</h2>
+	<h2>Do u still wanna unseal the love letters? ❤️</h2>
+        <div class="btn-group">
+            <button id="yes-btn">Yes</button>
+            <button id="no-btn" onclick="alert('R U SURE!!!')">No</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <canvas id="heartCanvas"></canvas>
+        <div id="content-layer">
+            <div class="slideshow-container">
+                <img src="p1.jpg" class="photo active">
+                <img src="p2.jpg" class="photo">
+                <img src="p3.jpg" class="photo">
+		<img src="p4.jpg" class="photo">
+                <img src="p5.jpg" class="photo">
+		<img src="p6.jpg" class="photo">
+                <img src="p7.jpg" class="photo">
+		<img src="p8.jpg" class="photo">
+                <img src="p9.jpg" class="photo">
+		<img src="p10.jpg" class="photo">
+                <img src="p11.jpg" class="photo">
+		<img src="p12.jpg" class="photo">
+                <img src="p13.jpg" class="photo">
+		<img src="p14.jpg" class="photo">
+                <img src="p15.jpg" class="photo">
+		<img src="p16.jpg" class="photo">
+                <img src="p17.jpg" class="photo">
+
+
+            </div>
+            <h1> 3/10 生日快樂 </h1>
+	    <h1> 時間在今天多停留一會 </h1>
+	    <h1> 因為這一天 世界多了一個妳 </h1>
+	    <h1></h1>
+	    <h1> 感情是原石 </h1>
+	    <h1> 而日常裡那些細碎卻發亮的時刻⭐️ </h1>
+	    <h1> 一起走過的街道 晚風裡的對話 </h1>
+	    <h1> 才是雕刻成鑽的利器🪏 </h1>
+	    <h1></h1>
+	    <h1> 謝謝妳，讓我的生活多了溫柔的重量 </h1>
+	    <h1> 願新的一歲，妳依然保有自己的光 </h1>
+	    <h1></h1>
+	    <h1> 如果未來很長，我希望能在妳身旁 </h1>
+	    <h1> 陪妳看四季更迭，陪妳把平凡過成詩🎼 </h1>
+	    <h1></h1>
+	    <h1> 生日快樂🎂 </h1>
+	    <h1> 願歲月緩慢，也願妳始終被💘 </h1>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yes-btn');
+        const overlay = document.getElementById('overlay');
+        const mainContent = document.getElementById('main-content');
+        let animationStarted = false;
+
+        // 點擊 Yes 啟動動畫
+        yesBtn.addEventListener('click', () => {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.style.opacity = '1';
+                startAnimation(); // 啟動愛心雨
+            }, 1000);
+        });
+
+        // 1. 照片輪播邏輯
+        let currentIdx = 0;
+        const photos = document.querySelectorAll('.photo');
+        function showNextPhoto() {
+            if(!animationStarted) return;
+            photos[currentIdx].classList.remove('active');
+            currentIdx = (currentIdx + 1) % photos.length;
+            photos[currentIdx].classList.add('active');
+        }
+        setInterval(showNextPhoto, 4000);
+
+        // 2. 愛心雨邏輯
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+        const heartCount = 100;
+
+        class Heart {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.spawnFromTop = Math.random() > 0.5; 
+                this.y = this.spawnFromTop ? -20 : canvas.height + 20;
+                this.size = Math.random() * 10 + 5;
+                this.speed = Math.random() * 1.5 + 0.5;
+                this.direction = this.spawnFromTop ? 1 : -1;
+                this.opacity = Math.random() * 0.6 + 0.4;
+                this.wind = Math.random() * 0.5 - 0.25;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#ffb6c1';
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#ff69b4';
+                ctx.beginPath();
+                const x = this.x, y = this.y, s = this.size;
+                ctx.moveTo(x, y + s / 4);
+                ctx.bezierCurveTo(x, y, x - s, y, x - s, y + s / 4);
+                ctx.bezierCurveTo(x - s, y + (s * 2) / 3, x, y + s, x, y + s * 1.2);
+                ctx.bezierCurveTo(x, y + s, x + s, y + (s * 2) / 3, x + s, y + s / 4);
+                ctx.bezierCurveTo(x + s, y, x, y, x, y + s / 4);
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.y += this.speed * this.direction;
+                this.x += this.wind;
+                if (this.y > canvas.height + 50 || this.y < -50) this.reset();
+            }
+        }
+
+        function startAnimation() {
+            animationStarted = true;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for (let i = 0; i < heartCount; i++) hearts.push(new Heart());
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
