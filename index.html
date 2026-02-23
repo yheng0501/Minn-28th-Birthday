@@ -79,31 +79,38 @@
             margin-bottom: 30px;
             padding: 0 20px;
         }
-		.long-text {
-		    font-size: 1.1rem;
-		    line-height: 1.9;
-		    color: #eee;
-		    /* 整塊從畫面左邊開始 */
-		    width: 100%;
-		    max-width: none;
-		    margin: 0;
-		
-		    /* 文字靠左 */
-		    text-align: left;
-		
-		    /* 保留換行，但不要保留縮排空白 → 把 pre-wrap 改成 pre-line */
-		    white-space: pre-line;
-		
-		    /* 粉色直線 + 與文字的間距 */
-		    padding-left: 24px;
-		    border-left: 2px solid rgba(255, 182, 193, 0.7);
-		    box-shadow: -6px 0 12px -6px rgba(255,105,180,0.6);
+		/* 共用基礎樣式 */
+		@media (max-width: 600px) {
+			.long-text {
+			    font-size: 1rem;
+			    line-height: 1.9;
+			    width: 100%;
+			    margin: 0;
+			    text-align: left;
+			    white-space: pre-line;
+			    padding-left: 18px;
+			}
 		}
-		.en {
+		/* 中文詩：溫柔粉色 */
+		.long-text.zh {
+		    color: #eee;
+		    border-left: 3px solid rgba(255, 182, 193, 0.8);
+		    box-shadow: -6px 0 12px -6px rgba(255,105,180,0.6);
+		    margin-bottom: 50px;   /* 中英文之間留空 */
+		}
+		/* 英文詩：克制優雅 */
+		.long-text.en {
 		    color: #ccc;
-		    font-style: italic;	
-        }
-
+		    font-style: italic;
+		    border-left: 2px solid rgba(200, 200, 200, 0.4);
+		}
+		.divider {
+		    width: 60%;
+		    height: 1px;
+		    background: linear-gradient(to right, transparent, rgba(255,182,193,0.4), transparent);
+		    margin: 40px auto;
+		}
+		
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
     </style>
 </head>
@@ -161,7 +168,9 @@
 			生日快樂🎂
 			願歲月緩慢，也願妳始終被愛💘
 			</div>
-
+			
+			<div class="divider"></div>
+			
 			<div class="long-text en">
 			To My Beloved:
 		    Time lingers a little longer today,
@@ -181,7 +190,7 @@
 		    to witness the turning of seasons,
 		    to make of the ordinary something like a poem.
 
-		    Happy Birthday.
+		    Happy Birthday, My GRL~
 		    May time move gently around you,
 		    and may you always dwell in love.
             </div>
