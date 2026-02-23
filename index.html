@@ -80,13 +80,16 @@
             padding: 0 20px;
         }
         
-        .long-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #eee;
-            padding: 0 30px;
-            text-align: left; /* 長文字建議靠左或置中，看你喜好 */
-            white-space: pre-wrap; /* 保留換行符號 */
+		.long-text {
+		    max-width: 650px;
+		    margin: 0 auto 40px;
+		    line-height: 1.9;
+		    white-space: pre-wrap;
+		    text-align: left;
+		}
+		.en {
+		    color: #ccc;
+		    font-style: italic;	
         }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
@@ -126,9 +129,9 @@
             <img src="p17.jpg" class="photo">
             </div>
             <h1> 3/10 生日快樂！🎉 </h1>
-            
-            <div class="long-text">
-            給我的摯愛：
+
+			<div class="long-text zh">
+			給我的摯愛：
 			時間在今天多停留一會
 			因為這一天 世界多了一個妳
 			
@@ -145,9 +148,10 @@
 			
 			生日快樂🎂
 			願歲月緩慢，也願妳始終被愛💘
+			</div>
 
-
-		    To My Beloved:
+			<div class="long-text en">
+			To My Beloved:
 		    Time lingers a little longer today,
 		    for this is the day the world was entrusted with you.
 
