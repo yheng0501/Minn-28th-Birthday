@@ -7,58 +7,60 @@
     <style>
         body { 
             margin: 0; 
+            /* 修改 1：允許網頁垂直滾動 */
             overflow-x: hidden;
             overflow-y: auto; 
             background-color: #000; 
-            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; 
+            font-family: sans-serif; 
         }
 
-        /* 詢問畫面 */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 100;
             transition: opacity 1s;
         }
-        #overlay h2 { color: white; margin-bottom: 10px; text-align: center; padding: 0 20px; font-size: 1.2rem; }
-        button { padding: 12px 35px; font-size: 1.1rem; cursor: pointer; border-radius: 30px; border: none; transition: 0.3s; }
+
+        #overlay h2 { color: white; margin-bottom: 20px; }
+        
+        button {
+            padding: 12px 35px; font-size: 1.1rem; cursor: pointer;
+            border-radius: 30px; border: none; transition: 0.3s;
+        }
         #yes-btn { background: #ff69b4; color: white; box-shadow: 0 0 15px #ff69b4; margin-right: 15px; }
         #no-btn { background: #444; color: #ccc; }
 
-        /* 愛心背景固定在最底層 */
-        canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
-
         #main-content { 
             opacity: 0; 
-            transition: opacity 1.5s; 
-            position: relative; 
-            z-index: 5; 
-            width: 100%; 
-            display: none; 
-        }
-
-        /* 文字與照片的容器：修正置中 */
-        #content-layer {
+            transition: opacity 1.5s;
             position: relative;
             z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-            text-align: center; 
-            color: white; 
-            width: 90%; 
-            max-width: 600px; 
-            margin: 0 auto; 
+            width: 100%;
+            /* 修改 2：讓內容層有內距，滾動到底部時才不會太擠 */
+            padding: 100px 0; 
         }
 
-        /* 照片容器：改為隨網頁滾動 */
+        /* 修改 3：Canvas 固定在螢幕背景，不隨滾動條移動 */
+        canvas { 
+            display: block; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            z-index: 1; 
+            pointer-events: none;
+        }
+
+        #content-layer {
+            text-align: center; 
+            color: white; 
+            width: 100%;
+            max-width: 800px; /* 限制文字寬度，手機上看比較舒服 */
+            margin: 0 auto;
+        }
+
         .slideshow-container {
-            position: relative; 
-            width: 280px; /* 適中大小，適合多數手機 */
-            height: 280px;
-            margin: 50px auto 20px auto; 
-            perspective: 1000px;
-            flex-shrink: 0; /* 防止被擠壓 */
+            position: relative; width: 350px; height: 350px;
+            margin: 0 auto 50px; perspective: 1000px;
         }
 
         .photo {
@@ -67,23 +69,24 @@
             box-shadow: 0 0 30px rgba(255, 105, 180, 0.7);
             opacity: 0; transition: opacity 1s;
         }
+
         .photo.active { opacity: 1; animation: float 5s ease-in-out infinite; }
 
+        /* 修改 4：文字樣式微調 */
         h1 { 
-            font-size: 1.6rem; 
+            font-size: 2rem; 
             text-shadow: 0 0 10px #ff69b4; 
-            margin: 20px 0;
-            line-height: 1.4;
+            margin-bottom: 30px;
+            padding: 0 20px;
         }
         
         .long-text {
-            font-size: 1.05rem;
-            line-height: 2;
-            color: #fff;
-            padding: 0 10px 100px 10px; 
-            white-space: pre-wrap;
-            word-wrap: break-word; 
-            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #eee;
+            padding: 0 30px;
+            text-align: left; /* 長文字建議靠左或置中，看你喜好 */
+            white-space: pre-wrap; /* 保留換行符號 */
         }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
@@ -93,7 +96,7 @@
 
     <div id="overlay">
         <h2>Once opened, the letters cannot be restored. 😈</h2>
-        <h2>Do u still wanna unseal the love letters? ❤️</h2>
+	<h2>Do u still wanna unseal the love letters? ❤️</h2>
         <div>
             <button id="yes-btn">Yes</button>
             <button id="no-btn" onclick="alert('R U SURE!!!')">No</button>
@@ -104,68 +107,67 @@
         <canvas id="heartCanvas"></canvas>
         <div id="content-layer">
             <div class="slideshow-container">
-                <img src="p1.jpg" class="photo active">
-                <img src="p2.jpg" class="photo">
-                <img src="p3.jpg" class="photo">
-                <img src="p4.jpg" class="photo">
-                <img src="p5.jpg" class="photo">
-                <img src="p6.jpg" class="photo">
-                <img src="p7.jpg" class="photo">
-                <img src="p8.jpg" class="photo">
-                <img src="p9.jpg" class="photo">
-                <img src="p10.jpg" class="photo">
-                <img src="p11.jpg" class="photo">
-                <img src="p12.jpg" class="photo">
-                <img src="p13.jpg" class="photo">
-                <img src="p14.jpg" class="photo">
-                <img src="p15.jpg" class="photo">
-                <img src="p16.jpg" class="photo">
-                <img src="p17.jpg" class="photo">
+		    <img src="p1.jpg" class="photo active">
+            <img src="p2.jpg" class="photo">
+            <img src="p3.jpg" class="photo">
+		    <img src="p4.jpg" class="photo">
+            <img src="p5.jpg" class="photo">
+		    <img src="p6.jpg" class="photo">
+            <img src="p7.jpg" class="photo">
+		    <img src="p8.jpg" class="photo">
+            <img src="p9.jpg" class="photo">
+		    <img src="p10.jpg" class="photo">
+            <img src="p11.jpg" class="photo">
+		    <img src="p12.jpg" class="photo">
+            <img src="p13.jpg" class="photo">
+		    <img src="p14.jpg" class="photo">
+            <img src="p15.jpg" class="photo">
+		    <img src="p16.jpg" class="photo">
+            <img src="p17.jpg" class="photo">
             </div>
-
-            <h1>3/10 生日快樂🎉願你永遠開心！</h1>
+            <h1> 3/10 生日快樂！🎉 </h1>
             
             <div class="long-text">
-給我的摯愛：
-時間在今天多停留一會
-因為這一天 世界多了一個妳
+            To My Beloved:
+		    時間在今天多停留一會
+		    因為這一天 世界多了一個妳
+		
+		    感情是原石
+	    	而日常裡那些細碎卻發亮的時刻⭐️
+	    	一起走過的街道 晚風裡的對話
+	    	才是雕刻成鑽的利器🪏
+	  
+	    	謝謝妳，讓我的生活多了溫柔的重量
+	    	願新的一歲，妳依然保有自己的光
+	   
+	    	如果未來很長，我希望能在妳身旁
+	    	陪妳看四季更迭，陪妳把平凡過成詩🎼
+	    
+	    	生日快樂🎂
+	    	願歲月緩慢，也願妳始終被愛💘
 
-感情是原石
-而日常裡那些細碎卻發亮的時刻⭐️
-一起走過的街道 晚風裡的對話
-才是雕刻成鑽的利器🪏
 
-謝謝妳，讓我的生活多了溫柔的重量
-願新的一歲，妳依然保有自己的光
+		    To My Beloved:
+		    Time lingers a little longer today,
+		    for this is the day the world was entrusted with you.
 
-如果未來很長，我希望能在妳身旁
-陪妳看四季更迭，陪妳把平凡過成詩🎼
+		    Love begins as a stone in its rough silence;
+		    it is the quiet glimmers of ordinary days—
+		    the streets we have wandered,
+		    the murmurs carried in the evening air—
+		    that shape it, slowly, into a diamond.
 
-生日快樂🎂
-願歲月緩慢，也願妳始終被愛💘
+		    Thank you for giving my life a tender gravity.
+		    May this new year guard the light that is wholly yours.
 
+		    And if the years unfold wide before us,
+		    let me remain beside you—
+		    to witness the turning of seasons,
+		    to make of the ordinary something like a poem.
 
-To My Beloved:
-Time lingers a little longer today,
-for this is the day the world was entrusted with you.
-
-Love begins as a stone in its rough silence;
-it is the quiet glimmers of ordinary days—
-the streets we have wandered,
-the murmurs carried in the evening air—
-that shape it, slowly, into a diamond.
-
-Thank you for giving my life a tender gravity.
-May this new year guard the light that is wholly yours.
-
-And if the years unfold wide before us,
-let me remain beside you—
-to witness the turning of seasons,
-to make of the ordinary something like a poem.
-
-Happy Birthday.
-May time move gently around you,
-and may you always dwell in love.
+		    Happy Birthday.
+		    May time move gently around you,
+		    and may you always dwell in love.
             </div>
         </div>
     </div>
@@ -179,8 +181,7 @@ and may you always dwell in love.
             overlay.style.opacity = '0';
             setTimeout(() => { 
                 overlay.style.display = 'none'; 
-                mainContent.style.display = 'block'; 
-                setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+                mainContent.style.opacity = '1'; 
                 startAnim(); 
             }, 1000);
         };
@@ -188,7 +189,7 @@ and may you always dwell in love.
         let currentIdx = 0;
         const photos = document.querySelectorAll('.photo');
         setInterval(() => {
-            if(photos.length <= 1) return;
+            if(photos.length === 0) return;
             photos[currentIdx].classList.remove('active');
             currentIdx = (currentIdx + 1) % photos.length;
             photos[currentIdx].classList.add('active');
@@ -227,7 +228,7 @@ and may you always dwell in love.
         function startAnim() {
             canvas.width = window.innerWidth; 
             canvas.height = window.innerHeight;
-            for(let i=0; i<80; i++) hearts.push(new Heart());
+            for(let i=0; i<100; i++) hearts.push(new Heart());
             (function frame() { 
                 ctx.clearRect(0,0,canvas.width,canvas.height); 
                 hearts.forEach(h=>{h.update();h.draw();}); 
@@ -235,6 +236,7 @@ and may you always dwell in love.
             })();
         }
 
+        // 監聽視窗縮放
         window.onresize = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
