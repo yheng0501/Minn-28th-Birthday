@@ -108,11 +108,24 @@
 		    animation: lineGrow 1s ease-out forwards;
 		    animation-delay: 0.1s;
 		}
+		.divider {
+		    width: 60%;
+		    height: 1px;
+		    background: linear-gradient(
+		        to right,
+		        transparent,
+		        rgba(255,182,193,0.4),
+		        transparent
+		    );
+		    margin: 80px auto 60px;  /* 上 80px，下 60px */
+		}
 		.long-text.en {
 		    color: #ccc;
 		    font-style: italic;
 		    opacity: 0;
-		    transform: translateY(8px);
+		    transform: translateY(40px);
+		    position: relative;
+		    padding-left: 24px;
 		}
 		.long-text.en::before {
 		    content: "";
@@ -130,17 +143,6 @@
 		    animation: lineGrow 1s ease-out forwards;
 		    animation-delay: 0.1s;
 		}
-		.divider {
-		    width: 60%;
-		    height: 1px;
-		    background: linear-gradient(
-		        to right,
-		        transparent,
-		        rgba(255,182,193,0.4),
-		        transparent
-		    );
-		    margin: 40px auto;
-		}
 		@media (max-width: 600px) {
 		    .long-text {
 		        font-size: 1rem;
@@ -155,7 +157,7 @@
 		@keyframes textFade {
 		    from {
 		        opacity: 0;
-		        transform: translateY(8px);
+		        transform: translateY(40px);
 		    }
 		    to {
 		        opacity: 1;
@@ -328,7 +330,8 @@
 		            }
 		        });
 		    }, {
-		        threshold: 0.3   // 約有 30% 區塊進入視窗就觸發
+		        threshold: 0.5
+				rootMargin: "0px 0px -10% 0px"
 		    });
 		
 		    observer.observe(enText);
