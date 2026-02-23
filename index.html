@@ -87,31 +87,66 @@
 		    text-align: left;
 		    white-space: pre-line;
 		    padding-left: 24px;
+		    position: relative;
+		    opacity: 0;
+		    transform: translateY(8px);     
+		    animation: textFade 1s ease-out forwards;
 		}
 		.long-text.zh {
 		    color: #eee;
-		    border-left: 3px solid rgba(255, 182, 193, 0.8);
-		    box-shadow: -6px 0 12px -6px rgba(255,105,180,0.6);
-		    margin-bottom: 50px;   /* 中英文之間留空 */
+		    margin-bottom: 40px;
 		}
 		.long-text.en {
 		    color: #ccc;
 		    font-style: italic;
-		    border-left: 2px solid rgba(200, 200, 200, 0.4);
+		}
+		.long-text::before {
+		    content: "";
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		    width: 2px;
+		    height: 0;
+		}
+		.long-text.zh::before {
+		    background: rgba(255, 182, 193, 0.9);
+		    box-shadow: -6px 0 12px -6px rgba(255,105,180,0.6);
+		    animation: lineGrow 1s ease-out forwards;
+		    animation-delay: 0.1s;
+		}
+		.long-text.en::before {
+		    background: rgba(200, 200, 200, 0.5);
+		    animation: lineGrow 1s ease-out forwards;
+		    animation-delay: 0.2s;
+		}
+		.divider {
+		    width: 60%;
+		    height: 1px;
+		    background: linear-gradient(
+		        to right,
+		        transparent,
+		        rgba(255,182,193,0.4),
+		        transparent
+		    );
+		    margin: 40px auto;
 		}
 		@media (max-width: 600px) {
 		    .long-text {
 		        font-size: 1rem;
 		        padding-left: 18px;
 		    }
-		    .divider {
-		        width: 60%;
-		        height: 1px;
-		        background: linear-gradient(to right, transparent, rgba(255,182,193,0.4), transparent);
-		        margin: 40px auto;
-		    }
 		}
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+		@keyframes lineGrow {
+				    from { height: 0; }
+				    to   { height: 100%; }}
+
+		@keyframes textFade {
+		    from {opacity: 0;
+				  transform: translateY(8px);}
+		    to {opacity: 1;
+		        transform: translateY(0);}
+		}
     </style>
 </head>
 <body>
