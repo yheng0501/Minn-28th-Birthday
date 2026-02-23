@@ -34,15 +34,15 @@
             position: relative; 
             z-index: 5; 
             width: 100%; 
-            display: none; /* 初始隱藏 */
+            display: none; 
         }
 
-        /* 照片容器：改回 relative，隨網頁滾動 */
+        /* 照片容器 */
         .slideshow-container {
             position: relative; 
-            width: 320px; 
-            height: 320px;
-            margin: 50px auto 30px auto; /* 距離頂部 50px */
+            width: 300px; /* 稍微縮小一點點以適應所有手機 */
+            height: 300px;
+            margin: 50px auto 30px auto; 
             perspective: 1000px;
             z-index: 2;
         }
@@ -55,31 +55,37 @@
         }
         .photo.active { opacity: 1; animation: float 5s ease-in-out infinite; }
 
-        /* 文字層級 */
+        /* 文字層級：修正置中與邊距 */
         #content-layer {
             position: relative;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 確保內容水平居中 */
             text-align: center; 
             color: white; 
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
+            width: 90%; /* 使用百分比，防止在手機上超出 */
+            max-width: 600px; /* 限制最大寬度讓閱讀更舒服 */
+            margin: 0 auto; /* 容器置中 */
         }
 
         h1 { 
-            font-size: 1.8rem; 
+            font-size: 1.6rem; 
             text-shadow: 0 0 10px #ff69b4; 
             margin: 20px 0;
-            padding: 0 20px;
+            line-height: 1.4;
+            width: 100%;
         }
         
         .long-text {
-            font-size: 1.1rem;
-            line-height: 2;
+            font-size: 1.05rem;
+            line-height: 1.8;
             color: #fff;
-            padding: 0 30px 100px 30px; 
+            padding: 0 10px 100px 10px; 
             white-space: pre-wrap;
+            word-wrap: break-word; /* 強制長單字換行，防止超出 */
             text-align: center;
+            width: 100%;
         }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
@@ -122,46 +128,46 @@
             <h1>3/10 生日快樂🎉願你永遠開心！</h1>
             
             <div class="long-text">
-                給我的摯愛：
-                時間在今天多停留一會
-                因為這一天 世界多了一個妳
-                
-                感情是原石
-                而日常裡那些細碎卻發亮的時刻⭐️
-                一起走過的街道 晚風裡的對話
-                才是雕刻成鑽的利器🪏
-              
-                謝謝妳，讓我的生活多了溫柔的重量
-                願新的一歲，妳依然保有自己的光
-              
-                如果未來很長，我希望能在妳身旁
-                陪妳看四季更迭，陪妳把平凡過成詩🎼
-            
-                生日快樂🎂
-                願歲月緩慢，也願妳始終被愛💘
+給我的摯愛：
+時間在今天多停留一會
+因為這一天 世界多了一個妳
 
-                
-                To My Beloved:
-                Time lingers a little longer today,
-                for this is the day the world was entrusted with you.
+感情是原石
+而日常裡那些細碎卻發亮的時刻⭐️
+一起走過的街道 晚風裡的對話
+才是雕刻成鑽的利器🪏
 
-                Love begins as a stone in its rough silence;
-                it is the quiet glimmers of ordinary days—
-                the streets we have wandered,
-                the murmurs carried in the evening air—
-                that shape it, slowly, into a diamond.
+謝謝妳，讓我的生活多了溫柔的重量
+願新的一歲，妳依然保有自己的光
 
-                Thank you for giving my life a tender gravity.
-                May this new year guard the light that is wholly yours.
+如果未來很長，我希望能在妳身旁
+陪妳看四季更迭，陪妳把平凡過成詩🎼
 
-                And if the years unfold wide before us,
-                let me remain beside you—
-                to witness the turning of seasons,
-                to make of the ordinary something like a poem.
+生日快樂🎂
+願歲月緩慢，也願妳始終被愛💘
 
-                Happy Birthday.
-                May time move gently around you,
-                and may you always dwell in love.
+
+To My Beloved:
+Time lingers a little longer today,
+for this is the day the world was entrusted with you.
+
+Love begins as a stone in its rough silence;
+it is the quiet glimmers of ordinary days—
+the streets we have wandered,
+the murmurs carried in the evening air—
+that shape it, slowly, into a diamond.
+
+Thank you for giving my life a tender gravity.
+May this new year guard the light that is wholly yours.
+
+And if the years unfold wide before us,
+let me remain beside you—
+to witness the turning of seasons,
+to make of the ordinary something like a poem.
+
+Happy Birthday.
+May time move gently around you,
+and may you always dwell in love.
             </div>
         </div>
     </div>
@@ -175,7 +181,7 @@
             overlay.style.opacity = '0';
             setTimeout(() => { 
                 overlay.style.display = 'none'; 
-                mainContent.style.display = 'block'; // 顯示內容區塊
+                mainContent.style.display = 'block'; 
                 setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
                 startAnim(); 
             }, 1000);
