@@ -79,18 +79,24 @@
             margin-bottom: 30px;
             padding: 0 20px;
         }
-
 		.long-text {
 		    font-size: 1.1rem;
 		    line-height: 1.9;
 		    color: #eee;
-		    max-width: 650px;
-		    margin: 0 auto;
-		    text-align: left;
-		    white-space: pre-wrap;
+		    /* 整塊從畫面左邊開始 */
+		    width: 100%;
+		    max-width: none;
+		    margin: 0;
 		
-		    padding-left: 40px;
-		    border-left: 2px solid #ffb6c1;
+		    /* 文字靠左 */
+		    text-align: left;
+		
+		    /* 保留換行，但不要保留縮排空白 → 把 pre-wrap 改成 pre-line */
+		    white-space: pre-line;
+		
+		    /* 粉色直線 + 與文字的間距 */
+		    padding-left: 24px;
+		    border-left: 2px solid rgba(255, 182, 193, 0.7);
 		    box-shadow: -6px 0 12px -6px rgba(255,105,180,0.6);
 		}
 		.en {
