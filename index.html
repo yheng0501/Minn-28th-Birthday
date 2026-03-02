@@ -7,7 +7,7 @@
     <style>
         body { 
             margin: 0; 
-            /* 修改 1：允許網頁垂直滾動 */
+            /* 允許網頁垂直滾動 */
             overflow-x: hidden;
             overflow-y: auto; 
             background-color: #000; 
@@ -36,11 +36,10 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            /* 修改 2：讓內容層有內距，滾動到底部時才不會太擠 */
             padding: 100px 0; 
         }
 
-        /* 修改 3：Canvas 固定在螢幕背景，不隨滾動條移動 */
+        /* Canvas固定在螢幕背景 */
         canvas { 
             display: block; 
             position: fixed; 
@@ -54,7 +53,7 @@
             text-align: center; 
             color: white; 
             width: 100%;
-            max-width: 800px; /* 限制文字寬度，手機上看比較舒服 */
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -72,7 +71,7 @@
 
         .photo.active { opacity: 1; animation: float 5s ease-in-out infinite; }
 
-        /* 修改 4：文字樣式微調 */
+        /* 文字樣式調整 */
         h1 { 
             font-size: 2rem; 
             text-shadow: 0 0 10px #ff69b4; 
@@ -92,7 +91,7 @@
 		    color: #eee;
 		    border-left: 3px solid rgba(255, 182, 193, 0.8);
 		    box-shadow: -6px 0 12px -6px rgba(255,105,180,0.6);
-		    margin-bottom: 50px;   /* 中英文之間留空 */
+		    margin-bottom: 50px;
 		}
 		.long-text.en {
 		    color: #ccc;
@@ -147,6 +146,11 @@
             <img src="p15.jpg" class="photo">
 		    <img src="p16.jpg" class="photo">
             <img src="p17.jpg" class="photo">
+			<img src="p18.jpg" class="photo">
+		    <img src="p19.jpg" class="photo">
+            <img src="p20.jpg" class="photo">
+		    <img src="p21.jpg" class="photo">
+            <img src="p22.jpg" class="photo">	
             </div>
             <h1> 3/10 生日快樂！🎉 </h1>
 
@@ -268,7 +272,6 @@
             })();
         }
 
-        // 監聽視窗縮放
         window.onresize = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
