@@ -115,16 +115,17 @@
     </style>
 </head>
 <body>
-
+    <audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+	
     <div id="overlay">
         <h2>Once opened, the letters cannot be restored. 😈</h2>
-	<h2>Do u still wanna unseal the love letters? ❤️</h2>
+        <h2>Do u still wanna unseal the love letters? ❤️</h2>
         <div>
             <button id="yes-btn">Yes</button>
             <button id="no-btn" onclick="alert('R U SURE!!!')">No</button>
         </div>
     </div>
-
+	
     <div id="main-content">
         <canvas id="heartCanvas"></canvas>
         <div id="content-layer">
@@ -204,12 +205,18 @@
         
         yesBtn.onclick = () => {
             overlay.style.opacity = '0';
-            setTimeout(() => { 
-                overlay.style.display = 'none'; 
-                mainContent.style.opacity = '1'; 
-                startAnim(); 
-            }, 1000);
-        };
+
+	    if (bgm) {
+	        bgm.play().catch(err => {
+	            console.warn('BGM play blocked:', err);
+	        });
+	    }
+        setTimeout(() => { 
+            overlay.style.display = 'none'; 
+            mainContent.style.opacity = '1'; 
+            startAnim(); 
+        	}, 1000);
+    	};
 
         let currentIdx = 0;
         const photos = document.querySelectorAll('.photo');
